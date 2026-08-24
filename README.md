@@ -39,6 +39,14 @@ at a time, and input is ignored unless Accessibility permission is active.
 - Some system-reserved shortcuts cannot be synthesized by third-party apps.
 - The Mac receiver must remain running in the menu bar.
 
+## Automatic Personal Team refresh
+
+`Scripts/refresh-phone-app.sh` rebuilds and reinstalls the app when the paired
+iPhone is reachable. The included LaunchAgent runs it daily, so a missed run
+because the phone is away is retried the next day. USB is not required after
+wireless device development is enabled in Xcode; both devices must then be on
+the same network.
+
 ## License
 
 MIT

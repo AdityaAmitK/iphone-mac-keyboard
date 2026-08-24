@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+  <key>Label</key>
+  <string>com.adityaamit.iphone-mac-keyboard.refresh</string>
+  <key>ProgramArguments</key>
+  <array>
+    <string>/Users/aditya/Developer/Personal_Projects/iPhoneMacKeyboard/Scripts/refresh-phone-app.sh</string>
+  </array>
+  <key>StartInterval</key>
+  <integer>86400</integer>
+  <key>ProcessType</key>
+  <string>Background</string>
+  <key>StandardOutPath</key>
+  <string>/Users/aditya/Library/Logs/iPhoneMacKeyboard/refresh.log</string>
+  <key>StandardErrorPath</key>
+  <string>/Users/aditya/Library/Logs/iPhoneMacKeyboard/refresh-error.log</string>
+</dict>
+</plist>
