@@ -8,7 +8,11 @@ enum KeyboardInjector {
     }
 
     static func send(_ message: RemoteMessage) {
-        guard AXIsProcessTrusted() else { return }
+        guard AXIsProcessTrusted() else {
+            receiverLog.error("Input blocked: accessibility permission is not active")
+            return
+        }
+        receiverLog.info("Posting keyboard event")
         switch message {
         case let .text(text, modifiers):
             if text.count == 1, !modifiers.isEmpty, let keyCode = keyCodes[text.lowercased()] {

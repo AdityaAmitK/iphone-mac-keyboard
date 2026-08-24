@@ -1,5 +1,8 @@
 import AppKit
 import MultipeerConnectivity
+import OSLog
+
+let receiverLog = Logger(subsystem: "com.adityaamit.iphone-mac-keyboard.mac", category: "receiver")
 
 @MainActor
 final class MacReceiver: NSObject, ObservableObject {
@@ -36,6 +39,7 @@ extension MacReceiver: MCNearbyServiceAdvertiserDelegate, MCSessionDelegate {
     }
 
     nonisolated func session(_ session: MCSession, peer peerID: MCPeerID, didChange state: MCSessionState) {
+        receiverLog.info("Peer \(peerID.displayName, privacy: .public) state \(state.rawValue)")
         Task { @MainActor in
             connectedPeer = state == .connected ? peerID : nil
             status = state == .connected ? "Connected to \(peerID.displayName)" : "Ready for iPhone"
@@ -43,7 +47,11 @@ extension MacReceiver: MCNearbyServiceAdvertiserDelegate, MCSessionDelegate {
     }
 
     nonisolated func session(_ session: MCSession, didReceive data: Data, fromPeer peerID: MCPeerID) {
-        guard let message = try? JSONDecoder().decode(RemoteMessage.self, from: data) else { return }
+        guard let message = try? JSONDecoder().decode(RemoteMessage.self, from: data) else {
+            receiverLog.error("Could not decode \(data.count) bytes")
+            return
+        }
+        receiverLog.info("Received input from \(peerID.displayName, privacy: .public)")
         KeyboardInjector.send(message)
     }
 
